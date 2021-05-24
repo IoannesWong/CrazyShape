@@ -1,8 +1,10 @@
 package com.example.crazyshape
 
+import android.os.Build.VERSION_CODES
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -19,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+            val shape =
+                intArrayOf(R.drawable.circle,R.drawable.square,R.drawable.triangle,R.drawable.star)
+            val i:Int = (0..3).random()
+            imgNext.setImageResource(shape[i])
+
         val img: ImageView = findViewById(R.id.imgTitle)
 
         GlideApp.with(this)
@@ -32,10 +39,17 @@ class MainActivity : AppCompatActivity() {
 //
         imgNext.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(p0: View?): Boolean {
-                intent = Intent(this@MainActivity,GameActivity::class.java)
+                intent = Intent(this@MainActivity, GameActivity::class.java)
                 startActivity(intent)
                 return true
             }
         })
+        imgNext.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(p0:View?){
+                imgNext.setImageResource(shape[i])
+                recreate()
+            }
+        })
     }
 }
+
